@@ -6,13 +6,15 @@ namespace WeatherAPI.Controllers
 {
     [ApiController]
     [Route("api/weather")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherController : ControllerBase
     {
         private readonly IWeather _weather;
+        private readonly ILocation _location;
 
-        public WeatherForecastController(IWeather weather)
+        public WeatherController(IWeather weather, ILocation location)
         {
             _weather = weather;
+            _location = location;
         }
 
         [HttpGet("getbycity/{cityName}")]
@@ -30,12 +32,12 @@ namespace WeatherAPI.Controllers
             }
         }
 
-        [HttpGet("getbylatitudeandlongitude/{latitude}/{longitude}")]
-        public ActionResult GetWeatherByLatAndLong(string latitude, string longitude)
+        [HttpGet("getLocal")]
+        public async Task<ActionResult> GetWeatherByLatAndLong()
         {
             try
             {
-                var result = _weather.GetByLatitudeAndLongtitudeWeather(latitude, longitude);
+                var result = _weather.GetByLocalWeather();
 
                 return Ok(result);
             }
@@ -44,5 +46,6 @@ namespace WeatherAPI.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
     }
 }

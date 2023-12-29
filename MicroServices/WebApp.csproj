@@ -11,4 +11,13 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FirstMicroServiceAPI\WeatherAPI.csproj" />
+    <ProjectReference Include="..\SecondMicroServiceAPI\LoctionAPI.csproj" />
+    <ProjectReference Include="..\Service.WebApi\Service.WebApi.csproj" />
+    <ProjectReference Include="..\Service.WorkPlace\Service.WorkPlace.csproj" />
+    <ProjectReference Include="..\Services.Models\Services.Models.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -13,14 +13,14 @@ namespace Service.WebApi
             _httpClient = httpClient;
         }
 
-        public async Task<RootModel> GetByCityWeather(string cityName)
+        public async Task<WeatherResult> GetByCityWeather(string cityName)
         {
             var response = await _httpClient.GetAsync($"weather/{cityName}");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<RootModel>(content);
+                var result = JsonConvert.DeserializeObject<WeatherResult>(content);
                 return result;
             }
             else
@@ -29,20 +29,22 @@ namespace Service.WebApi
             }
         }
 
-        public async Task<RootModel> GetByLatitudeAndLongtitudeWeather(string latitude, string longitude)
+        public async Task<WeatherResult> GetByLocalWeather()
         {
-            var response = await _httpClient.GetAsync($"weather/{latitude}/{longitude}");
+            var response = await _httpClient.GetAsync($"weather/getLocal");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<RootModel>(content);
-                return result;
+
+                return result.Result; // Return the WeatherResult part of the response
             }
             else
             {
                 throw new HttpRequestException($"Error fetching weather data. Status code: {response.StatusCode}");
             }
         }
+
     }
 }

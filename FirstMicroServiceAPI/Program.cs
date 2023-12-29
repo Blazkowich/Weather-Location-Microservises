@@ -12,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IWeather, WeatherWorkPlace>();
+builder.Services.AddScoped<ILocation, LocationWorkPlace>();
 
 
 var app = builder.Build();

@@ -8,24 +8,32 @@ namespace Services.Models
 {
     public class RootModel
     {
-        public string Name { get; set; } = string.Empty;
+        public WeatherResult Result { get; set; }
+        public int Id { get; set; }
+        public object Exception { get; set; }
+        public int Status { get; set; }
+        public bool IsCanceled { get; set; }
+        public bool IsCompleted { get; set; }
+        public bool IsCompletedSuccessfully { get; set; }
+        public int CreationOptions { get; set; }
+        public object AsyncState { get; set; }
+        public bool IsFaulted { get; set; }
+    }
 
+    public class WeatherResult
+    {
+        public string Name { get; set; }
         public SysModel Sys { get; set; }
-
-        public double Dt { get; set; }
-
+        public long Dt { get; set; }
         public WindModel Wind { get; set; }
-
         public MainModel Main { get; set; }
-
         public List<WeatherModel> Weather { get; set; }
-
-        public LocationModel Coord { get; set; }
+        public Location Coord { get; set; }
     }
 
     public class SysModel
     {
-        public string Country { get; set; } = string.Empty;
+        public string Country { get; set; }
     }
 
     public class WindModel
@@ -36,18 +44,17 @@ namespace Services.Models
     public class MainModel
     {
         public double Temp { get; set; }
-        public double Pressure { get; set; }
-        public double Humidity { get; set; }
-
+        public int Pressure { get; set; }
+        public int Humidity { get; set; }
         public double TempCelsius { get; set; }
     }
 
     public class WeatherModel
     {
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; }
     }
 
-    public class LocationModel
+    public class Location
     {
         public double Lat { get; set; }
         public double Lon { get; set; }

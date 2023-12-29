@@ -1,7 +1,19 @@
+using Service.WebApi;
+using Service.WorkPlace;
+using Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IWeather, WeatherWorkPlace>();
+builder.Services.AddScoped<ILocation, LocationWorkPlace>();
+builder.Services.AddHttpClient<IWeather, WeatherWebApiService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiSettings:BaseUri"]);
+});
+
+
 
 var app = builder.Build();
 
