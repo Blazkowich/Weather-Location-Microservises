@@ -1,17 +1,67 @@
 ﻿@model Services.Models.WeatherResult
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome To Weather Point</h1>
     <div>
-        <h2>Weather Information</h2>
-        <p>City: @(Model.Name ?? "N/A")</p>
-        <p>Temperature: @(Model.Main?.TempCelsius ?? 0) °C</p>
-        <p>Wind: @(Model.Wind.Speed + "Km/h" ?? "N/A")</p>
-        <p>Weather: @(string.Join(", ", Model.Weather.Select(weather => weather.Description)))</p>
-        <p>Location: Lat @(Model.Coord?.Lat ?? 0), Lon @(Model.Coord?.Lon ?? 0)</p>
+        <h3>Weather Information</h3>
+        <div class="row align-items-center" >
+            <div class="col-1">
+                <div>
+                    <img src="~/town.ico" alt="Icon" width="32" height="32"><br />City<img />
+                </div>
+            </div>
+            <div class="col">
+                <div class="navbar navbar-blue rounded p-3" style="background-color: #007BFF; color: #fff;">@(Model.Name ?? "N/A")</div>
+            </div>
+        </div>
+        <hr />
+        <div class="row align-items-center" >
+            <div class="col-1">
+                <div>
+                    <img src="~/temp.ico" alt="Icon" width="32" height="32"><br />Temperature<img />
+                </div>
+            </div>
+            <div class="col">
+                <div class="navbar navbar-blue rounded p-3" style="background-color: #007BFF; color: #fff;">@(Model.Main?.TempCelsius ?? 0) °C</div>
+            </div>
+        </div>
+        <hr />
+        <div class="row align-items-center">
+            <div class="col-1">
+                <div>
+                    <img src="~/wind.ico" alt="Icon" width="32" height="32"><br />Wind Speed<img />
+                </div>
+            </div>
+            <div class="col">
+                <div class="navbar navbar-blue rounded p-3" style="background-color: #007BFF; color: #fff;">@(Model.Wind.Speed + "Km/h" ?? "N/A")</div>
+            </div>
+        </div>
+        <hr />
+        <div class="row align-items-center" >
+            <div class="col-1">
+                <div>
+                    <img src="~/weather.ico" alt="Icon" width="32" height="32"><br />Weather<img />
+                </div>
+            </div>
+            <div class="col">
+                <div class="navbar navbar-blue rounded p-3" style="background-color: #007BFF; color: #fff;">@(string.Join(", ", Model.Weather.Select(weather => weather.Description)))</div>
+            </div>
+        </div>
+        <hr />
+        <div class="row align-items-center" >
+            <div class="col-1">
+                <div>
+                    <img src="~/location.ico" alt="Icon" width="32" height="32"><br />Location<img />
+                </div>
+            </div>
+            <div class="col">
+                <div class="navbar navbar-blue rounded p-3" style="background-color: #007BFF; color: #fff;">Latitude - @(Model.Coord?.Lat ?? 0),<br /> Longtitude - @(Model.Coord?.Lon ?? 0)</div>
+            </div>
+        </div>
+        <hr />
     </div>
 </div>
