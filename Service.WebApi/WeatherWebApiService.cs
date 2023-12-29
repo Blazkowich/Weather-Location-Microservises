@@ -15,19 +15,32 @@ namespace Service.WebApi
 
         public async Task<RootModel> GetByCityWeather(string cityName)
         {
-            // Assume the weather information is retrieved through an API endpoint
             var response = await _httpClient.GetAsync($"weather/{cityName}");
 
             if (response.IsSuccessStatusCode)
             {
-                // Parse and return the response content as RootModel
                 var content = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<RootModel>(content);
                 return result;
             }
             else
             {
-                // Handle non-success status code, log, or throw an exception
+                throw new HttpRequestException($"Error fetching weather data. Status code: {response.StatusCode}");
+            }
+        }
+
+        public async Task<RootModel> GetByLatitudeAndLongtitudeWeather(string latitude, string longitude)
+        {
+            var response = await _httpClient.GetAsync($"weather/{latitude}/{longitude}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<RootModel>(content);
+                return result;
+            }
+            else
+            {
                 throw new HttpRequestException($"Error fetching weather data. Status code: {response.StatusCode}");
             }
         }

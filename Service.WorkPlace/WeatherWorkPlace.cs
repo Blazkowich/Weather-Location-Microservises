@@ -8,7 +8,7 @@ namespace Service.WorkPlace
 {
     public class WeatherWorkPlace : IWeather
     {
-        private string apiKey = "42130e33d0201d195e4935e0c182a513";
+        private readonly string apiKey = "42130e33d0201d195e4935e0c182a513";
 
         public async Task<RootModel> GetByCityWeather(string cityName)
         {
@@ -35,6 +35,38 @@ namespace Service.WorkPlace
                         return new RootModel
                         {
                             Name = "City Not Found",
+                        };
+                    }
+                }
+                throw;
+            }
+        }
+
+        public async Task<RootModel> GetByLatitudeAndLongtitudeWeather(string latitude, string longtitude)
+        {
+            using var webClient = new WebClient();
+
+            string url = $"https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longtitude}&appid={apiKey}";
+
+            try
+            {
+                var json = webClient.DownloadString(url);
+
+                var result = JsonConvert.DeserializeObject<RootModel>(json);
+
+                ConvertTemperatureToCelsius(result);
+
+                return result;
+            }
+            catch (WebException webException)
+            {
+                if (webException.Response is HttpWebResponse httpResponse)
+                {
+                    if (httpResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return new RootModel
+                        {
+                            Name = "Location Not Found",
                         };
                     }
                 }

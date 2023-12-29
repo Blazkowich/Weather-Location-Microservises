@@ -29,5 +29,20 @@ namespace WeatherAPI.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+        [HttpGet("getbylatitudeandlongitude/{latitude}/{longitude}")]
+        public ActionResult GetWeatherByLatAndLong(string latitude, string longitude)
+        {
+            try
+            {
+                var result = _weather.GetByLatitudeAndLongtitudeWeather(latitude, longitude);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
     }
 }

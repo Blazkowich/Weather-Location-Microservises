@@ -10,5 +10,7 @@ namespace Services
     public interface IWeather
     {
         Task<RootModel> GetByCityWeather(string cityName);
+
+        Task<RootModel> GetByLatitudeAndLongtitudeWeather(string latitude, string longitude);
     }
 }
